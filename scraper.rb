@@ -1,3 +1,4 @@
+require 'scraperwiki'
 # Members of the Legislative Assembly of New Brunswick
 # If you really want to get the photo url it is available following the url for each MLA.
 require 'iconv'
@@ -85,7 +86,7 @@ def clean_string(str)
  str.gsub(/\A[[:space:]]+|[[:space:]]+\z/, '')
 end
 
-unless ScraperWiki.select('name FROM sqlite_master WHERE type="table" AND name="swdata"').empty? 
+unless ScraperWiki.select('name FROM sqlite_master WHERE type="table" AND name="data"').empty? 
   ScraperWiki.sqliteexecute 'DELETE FROM swdata'
 end
 fetch_mla_list(MLA_LIST_SOURCE){ |mla_data| ScraperWiki.save_sqlite(['district_name'], mla_data) }
